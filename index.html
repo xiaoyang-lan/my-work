@@ -1,403 +1,449 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>兰梦遥 · 文化产业管理 | 作品集</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f5f7fb;
-            color: #1e2a3e;
-            line-height: 1.5;
-            padding: 2rem 1rem;
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 32px;
-            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        .header {
-            background: linear-gradient(135deg, #1e2a3e 0%, #2c3e50 100%);
-            color: white;
-            padding: 2.5rem 2rem;
-        }
-        .name { font-size: 2.8rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .tagline {
-            font-size: 1.2rem;
-            opacity: 0.85;
-            margin-bottom: 1.5rem;
-            border-left: 3px solid #7ab2d3;
-            padding-left: 1rem;
-        }
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.2rem;
-            font-size: 0.9rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 60px;
-            padding: 0.8rem 1.2rem;
-        }
-        .contact-info span { display: inline-flex; align-items: center; gap: 0.4rem; }
-        .content {
-            padding: 2rem;
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 2rem;
-        }
-        .sidebar { border-right: 1px solid #e9edf2; padding-right: 1.5rem; }
-        .section { margin-bottom: 2rem; }
-        .section-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #2c7da0;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #e2e8f0;
-            padding-bottom: 0.4rem;
-            display: inline-block;
-        }
-        .skill-list, .interest-list {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-top: 0.5rem;
-        }
-        .skill-list li, .interest-list li {
-            background: #eff3f8;
-            padding: 0.3rem 0.9rem;
-            border-radius: 30px;
-            font-size: 0.8rem;
-        }
-        .project-card { margin-bottom: 1.8rem; }
-        .project-title {
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: #1e4663;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-        .project-role {
-            font-size: 0.75rem;
-            background: #eef2f9;
-            padding: 0.2rem 0.6rem;
-            border-radius: 20px;
-            color: #2c7da0;
-        }
-        .project-desc { font-size: 0.9rem; color: #2d3e50; margin: 0.3rem 0; }
-        .project-tech { font-size: 0.75rem; color: #5a6e7c; }
-        .footer {
-            background-color: #f8fafd;
-            padding: 1.2rem 2rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #6c7e8f;
-            border-top: 1px solid #e2e8f0;
-        }
-        .essay-btn-container {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            z-index: 1000;
-        }
-        .essay-btn {
-            background: #2c7da0;
-            color: white;
-            border: none;
-            border-radius: 60px;
-            padding: 0.8rem 1.8rem;
-            font-size: 1rem;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .essay-btn:hover { background: #1e5a73; }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 700px;
-            max-height: 85vh;
-            border-radius: 24px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .modal-header {
-            padding: 1.2rem 1.5rem;
-            background: #1e2a3e;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: white;
-        }
-        .modal-body { padding: 1.5rem; overflow-y: auto; flex: 1; }
-        .essay-form {
-            margin-bottom: 2rem;
-            background: #f8fafd;
-            padding: 1rem;
-            border-radius: 20px;
-        }
-        .essay-form input, .essay-form textarea {
-            width: 100%;
-            margin-bottom: 0.8rem;
-            padding: 0.7rem;
-            border: 1px solid #dce3ec;
-            border-radius: 16px;
-            font-family: inherit;
-        }
-        .essay-form button {
-            background: #2c7da0;
-            color: white;
-            border: none;
-            padding: 0.5rem 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-        .essay-item {
-            background: #ffffff;
-            border: 1px solid #e9edf2;
-            border-radius: 20px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-        .essay-title { font-weight: 700; color: #1e4663; margin-bottom: 0.3rem; }
-        .essay-date { font-size: 0.7rem; color: #7a8e9e; margin-bottom: 0.6rem; }
-        .essay-content {
-            font-size: 0.85rem;
-            color: #2d3e50;
-            white-space: pre-wrap;
-        }
-        .delete-essay {
-            background: none;
-            border: none;
-            color: #b91c1c;
-            font-size: 0.75rem;
-            cursor: pointer;
-            margin-top: 0.5rem;
-        }
-        .empty-msg { color: #7a8e9e; text-align: center; padding: 2rem; }
-        @media (max-width: 750px) {
-            .content { grid-template-columns: 1fr; gap: 1rem; }
-            .sidebar { border-right: none; padding-right: 0; }
-            .name { font-size: 2rem; }
-            .contact-info { flex-direction: column; align-items: flex-start; border-radius: 20px; }
-            .essay-btn-container { bottom: 1rem; right: 1rem; }
-            .essay-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
-        }
-    </style>
-</head>
-<body>
-<div class="container">
-    <div class="header">
-        <div class="name">兰梦遥</div>
-        <div class="tagline">文化产业管理 · 内容研究 · AI应用</div>
-        <div class="contact-info">
-            <span>📞 19301358623</span>
-            <span>✉️ 3240864254@qq.com</span>
-            <span>📍 上海 · 同济大学</span>
-            <span>🔗 CET-6 586 | Python | AI 工具链</span>
-        </div>
-    </div>
-    <div class="content">
-        <div class="sidebar">
-            <div class="section">
-                <div class="section-title">教育背景</div>
-                <div class="education-item">
-                    <div class="edu-title">同济大学 人文学院</div>
-                    <div class="edu-meta">文化产业管理 · 2024级（本科） · 2027届</div>
-                    <div class="edu-meta">相关课程：文化产业经济学、文创空间与战略管理、管理学原理、文化市场调研</div>
-                    <div class="edu-meta">🎓 同济大学优秀学生二等奖学金、社会活动奖学金</div>
-                </div>
-            </div>
-            <div class="section">
-                <div class="section-title">核心技能</div>
-                <ul class="skill-list">
-                    <li>Python / SPSS</li><li>德尔菲法 & 指标体系</li><li>问卷设计 & 数据分析</li>
-                    <li>Notion · 语雀 · 知识管理</li><li>可画 / 秀米 / 剪映</li><li>AI提示词工程</li>
-                    <li>文献综述 & 学术报告</li>
-                </ul>
-            </div>
-            <div class="section">
-                <div class="section-title">AI应用能力</div>
-                <ul class="skill-list">
-                    <li>ChatGPT · Deepseek · Claude</li><li>结构化提示词（写作/数据/代码）</li>
-                    <li>AI辅助指标体系构建</li><li>嵌入个人知识管理流程</li>
-                </ul>
-            </div>
-            <div class="section">
-                <div class="section-title">学术与兴趣领域</div>
-                <ul class="interest-list">
-                    <li>电影量化研究</li><li>非遗 & 博物馆</li><li>文化产业园区</li>
-                    <li>文化政策与产业经济</li><li>游戏 & 内容生态</li><li>进化生物学/认知演化</li>
-                    <li>塔罗与象征系统</li>
-                </ul>
-            </div>
-            <div class="section">
-                <div class="section-title">荣誉 & 职务</div>
-                <ul class="honor-list">
-                    <li>上海市大创市级立项并结项</li><li>SITP 立项（组长 · AI伦理量化）</li>
-                    <li>班长 · 人文学院宣传部/实践部</li><li>奉贤区“明日委员” · 三好学生</li>
-                    <li>同济大学优秀学生干部</li>
-                </ul>
-            </div>
-        </div>
-        <div class="main">
-            <div class="section">
-                <div class="section-title">研究 & 项目实践</div>
-                <div class="project-card">
-                    <div class="project-title">生成式AI伦理风险量化评估指标体系<span class="project-role">组长 · SITP立项</span></div>
-                    <div class="project-desc">• 收集51份全球AI伦理政策文本，归纳6个一级、38个三级指标，多版本迭代。<br>• 邀请10位专家进行德尔菲法打分，定量+定性分析计算权重，形成完整指标体系。<br>• 开发网页自检工具，实现风险评估与等级划分。</div>
-                    <div class="project-tech">#指标体系 #德尔菲法 #Python #协作工具</div>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">蹭老式消费与青年个体化文化<span class="project-role">上海市级大创 · 核心成员</span></div>
-                    <div class="project-desc">• 参与访谈与调研设计、数据分析，负责市级答辩，撰写报告。<br>• 市级立项并结项，探讨消费现象背后的青年文化逻辑。</div>
-                    <div class="project-tech">#质性+定量 #社会调研 #答辩展示</div>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">长江文化赋能城市更新的实践模式<span class="project-role">SITP · 核心成员</span></div>
-                    <div class="project-desc">• 案例收集与文献梳理，分析文化品牌与文化生态协同机制。<br>• 独立开发“城市名片”概念与初步设计方案，形成研究报告及原型。</div>
-                    <div class="project-tech">#文化政策 #城市更新 #概念设计</div>
-                </div>
-                <div class="project-card">
-                    <div class="project-title">学年论文：电影量化研究<span class="project-role">独立研究 · 进行中</span></div>
-                    <div class="project-desc">《中国电影纵向影响力模型的类型识别与映前预测》——基于30-50部国产电影数据，采用聚类-分类与回归方法，探索首周票房占比、评分变化等指标，构建映前预测框架。</div>
-                    <div class="project-tech">#Python #SPSS #计量电影学 #产业分析</div>
-                </div>
-            </div>
-            <div class="section">
-                <div class="section-title">个人特质 & 工作理念</div>
-                <div class="project-desc">🔹 系统性、结构化、量化思考者——习惯搭建框架、指标与模型，但也警惕过度规划带来的执行疲劳。<br>🔹 问题驱动的研究观：“理论是仆人，问题才是主人”，善于将真实困惑转化为可操作的研究路径。<br>🔹 主动构建个人生产力系统（Notion/语雀），实现知识管理与情绪记录的正向循环。<br>🔹 对文化产业抱有持续热情，同时关注身心健康与可持续成长。</div>
-            </div>
-            <div class="section">
-                <div class="section-title">语言 & 其他</div>
-                <div class="info-text"><strong>CET-4</strong> 638 ｜ <strong>CET-6</strong> 586 ｜ 普通话二级乙等<br>熟练使用办公协作套件：WPS、腾讯文档、PowerPoint；基础视频剪辑与设计排版。</div>
-            </div>
-        </div>
-    </div>
-    <div class="footer">© 2026 兰梦遥 · 本页面展示项目与技能均为真实经历 | 暑期实习：产品/市场/研究/内容方向</div>
-</div>
-<div class="essay-btn-container"><button class="essay-btn" id="essayBtn">📝 随笔空间</button></div>
-<div id="essayModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header"><h3>📖 我的随笔 · 思考碎片</h3><button class="close-modal" id="closeModalBtn">&times;</button></div>
-        <div class="modal-body">
-            <div class="essay-form">
-                <input type="text" id="essayTitle" placeholder="标题（选填）" maxlength="100">
-                <textarea id="essayContent" placeholder="写点什么… 日常观察、读书笔记、研究灵感……" rows="3"></textarea>
-                <button id="saveEssayBtn">✍️ 保存随笔</button>
-            </div>
-            <div id="essayListContainer"></div>
-        </div>
-    </div>
-</div>
-<script>
-    const STORAGE_KEY = 'lan_mengyao_essays';
-    function loadEssays() {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        let essays = [];
-        if (stored) { try { essays = JSON.parse(stored); } catch(e) {} }
-        essays.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
-        return essays;
-    }
-    function saveEssays(essays) { localStorage.setItem(STORAGE_KEY, JSON.stringify(essays)); }
-    function addEssay(title, content) {
-        if (!content.trim()) { alert('内容不能为空'); return false; }
-        const essays = loadEssays();
-        const newEssay = { id: Date.now(), title: title.trim() || '无题', content: content.trim(), timestamp: new Date().toISOString() };
-        essays.unshift(newEssay);
-        saveEssays(essays);
-        renderEssayList();
-        return true;
-    }
-    function deleteEssay(id) {
-        let essays = loadEssays();
-        essays = essays.filter(e => e.id != id);
-        saveEssays(essays);
-        renderEssayList();
-    }
-    function renderEssayList() {
-        const container = document.getElementById('essayListContainer');
-        const essays = loadEssays();
-        if (essays.length === 0) { container.innerHTML = '<div class="empty-msg">✨ 还没有随笔，记下你的灵感吧～</div>'; return; }
-        let html = '';
-        for (let essay of essays) {
-            const dateObj = new Date(essay.timestamp);
-            const dateStr = `${dateObj.getFullYear()}-${dateObj.getMonth()+1}-${dateObj.getDate()} ${dateObj.getHours().toString().padStart(2,'0')}:${dateObj.getMinutes().toString().padStart(2,'0')}`;
-            html += `<div class="essay-item"><div class="essay-title">${escapeHtml(essay.title)}</div><div class="essay-date">📅 ${dateStr}</div><div class="essay-content">${escapeHtml(essay.content).replace(/\n/g, '<br>')}</div><button class="delete-essay" data-id="${essay.id}">🗑️ 删除</button></div>`;
-        }
-        container.innerHTML = html;
-        document.querySelectorAll('.delete-essay').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.getAttribute('data-id'));
-                if (confirm('删除这条随笔？')) deleteEssay(id);
-            });
-        });
-    }
-    function escapeHtml(str) { return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
-    const modal = document.getElementById('essayModal');
-    const openBtn = document.getElementById('essayBtn');
-    const closeBtn = document.getElementById('closeModalBtn');
-    function openModal() { modal.style.display = 'flex'; renderEssayList(); }
-    function closeModal() { modal.style.display = 'none'; }
-    openBtn.addEventListener('click', openModal);
-    closeBtn.addEventListener('click', closeModal);
-    window.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    document.getElementById('saveEssayBtn').addEventListener('click', () => {
-        const title = document.getElementById('essayTitle').value;
-        const content = document.getElementById('essayContent').value;
-        if (addEssay(title, content)) {
-            document.getElementById('essayTitle').value = '';
-            document.getElementById('essayContent').value = '';
-        }
-    });
-    (function initDefaultEssay() {
-        const existing = loadEssays();
-        if (existing.length === 0) {
-            const sample = {
-                id: Date.now(),
-                title: '个体异化、融合与爱情消失',
-                content: `当爱情因个体的异化和融合而消失是什么意思，当艺术因过分的精致和晦涩而最终死亡”。
-刘慈欣老师小说中的一句话，看到对于“艺术”那一段似乎有共鸣（resonance‌），但是看前半句，不理解。十分巧合的是，最近也和朋友探讨了爱情。
-个体的异化，个体的融合，爱情的消失，主要是这三个部分，逻辑关系也很明显，爱情，因为，个体的异化，和个体的融合而消失，那么包含两个点：1.个体的异化和个体的融合是合并的关系，就是 both 存在导致爱情的消失。 2.个体的异化和个体的融合是两个东西，但是是否有交融？在字面上很难下结论，但是可以从字面中得出的是二者结合在一起是因，爱情的消失是果。下面两张图，是两种情况：
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>兰梦遥 | 文化产业管理 · 研究型作品集</title>
 
-ok，那就探讨三者。首先，何为个体的异化。对于异化，许多学者有研究，alienation，源自德国古典哲学的术语，指主体与客体分裂的状态，简单说就是：人创造出来的东西，反过来控制了人，让人变得不像人，举几个例子：在现代，异化更指向一些标准、格式化，比如“偏瘦的人 bmi 低于18.5”，或者“学识高的人至少应该是 985 或者 211 吧”。那么在爱情中是什么样的？偶像剧告诉我们，爱情应该是甜美的，或者是霸道总裁爱上我这种剧本，诸如此类；社会习俗告诉我们要结婚至少要有房有车吧，不然怎么有舒适生活，怎么证明你有抗风险的能力；关于对性别的默认观念告诉我们，一个主外一个主内这种模式；消费主义告诉我们，情人节要送礼物、恋爱纪念日要怎么过...... 爱情被格式化、标准化了，这是一种异化，“爱情应该是”控制了两个人，或者说左右了两个人，让两个人失去自我。
-个体的融合，我认为，个体的融合是个体的异化的结果，因为人失去真实的、不可替代的个体性（变成了标准化物品），那么两个标准化物品的相遇，是两个“角色”或两套“属性”在互动，而不是两个人在相遇。相遇后，如若再共享同一套感受、同一套目标、同一套日程，那么那个“之间”的空间就消失了，这样看来，两个人变成了类似的物品，产生类似的感受，拥有类似的日程等，那么两个人的差异性减少了，或者说两个人在成为一个人，融合产生了。
-但是什么是爱情？爱情至少需要两个人作为基础，爱情需要两个独立的个体，在相遇时，创造出一种既不属于你、也不属于我，而只存在于我们之间的第三者（爱本身），这样描述有点抽象，举了例子：一把吉他（个体A）和一把大提琴（个体B），各自独立，当它们合奏时，产生了第三者，即创作出的乐曲本身，乐曲既不属于吉他，也不属于大提琴，它存在于“它们之间”。
-回顾一下爱的词源，可以感受出为什么异化和融合会导致爱的消失。在中文里“爱”从“行”得义（《说文》：“行皃”），核心是眷恋与给予；“情”从心、青声（《说文》：“人之阴气有欲”），本指内在真实感受。“爱情”二字合为行动与感受的统一。西方语言（如英语的love）没有这个区分，是一种浪漫感受或纯粹的责任承诺。可以看出，爱不是光感受就够了，它需要具体的行动去“谱曲”；也不是光行动就行了，也需要真实的感受去“调音”。而这两种东西，在异化与融合中都会被毁掉，异化把行动变成标准化任务（送礼物是为了完成任务），融合把感受变成同步化呼吸（你哭我也哭，但你不知道为什么哭）。
-最后，梳理爱情消失的逻辑：异化后，二者相似，融合成几乎一个个体，爱情的基础（两个个体）消失，变得不稳固，爱情由此消失。
-这是我对于刘慈欣老师这段话的解读。后续，我还想再了解其他的观点，看看是否真的是这样。`,
-                timestamp: new Date().toISOString()
-            };
-            saveEssays([sample]);
-        }
-    })();
-</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --text:#1e2a3e;
+    --sub:#5c6b7a;
+    --line:#e5eaf0;
+    --blue:#2c7da0;
+    --deep:#1e4663;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    line-height:1.7;
+    padding:2rem 1rem;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:var(--card);
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.header{
+    background:linear-gradient(135deg,#1e2a3e,#2c3e50);
+    color:white;
+    padding:3rem 2rem;
+}
+
+.name{
+    font-size:3rem;
+    font-weight:700;
+    margin-bottom:0.6rem;
+}
+
+.tagline{
+    font-size:1.15rem;
+    opacity:0.9;
+    border-left:3px solid #7ab2d3;
+    padding-left:1rem;
+    margin-bottom:1.5rem;
+}
+
+.contact{
+    display:flex;
+    flex-wrap:wrap;
+    gap:1rem;
+}
+
+.contact a{
+    color:white;
+    text-decoration:none;
+    background:rgba(255,255,255,0.12);
+    padding:0.7rem 1rem;
+    border-radius:999px;
+    font-size:0.9rem;
+    transition:0.2s;
+}
+
+.contact a:hover{
+    background:rgba(255,255,255,0.2);
+}
+
+.content{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:2rem;
+    padding:2rem;
+}
+
+.sidebar{
+    border-right:1px solid var(--line);
+    padding-right:1.5rem;
+}
+
+.section{
+    margin-bottom:2rem;
+}
+
+.section-title{
+    font-size:1rem;
+    font-weight:700;
+    color:var(--blue);
+    margin-bottom:1rem;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.card{
+    margin-bottom:1.5rem;
+}
+
+.edu-title{
+    font-weight:700;
+    margin-bottom:0.3rem;
+}
+
+.edu-meta{
+    font-size:0.92rem;
+    color:var(--sub);
+    margin-bottom:0.4rem;
+}
+
+.tag-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0.6rem;
+    list-style:none;
+}
+
+.tag-list li{
+    background:#eef3f8;
+    color:#35546b;
+    padding:0.35rem 0.8rem;
+    border-radius:999px;
+    font-size:0.82rem;
+}
+
+.project{
+    margin-bottom:2rem;
+    padding-bottom:1.5rem;
+    border-bottom:1px solid var(--line);
+}
+
+.project:last-child{
+    border:none;
+}
+
+.project-header{
+    display:flex;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+    margin-bottom:0.6rem;
+}
+
+.project-title{
+    font-weight:700;
+    color:var(--deep);
+    font-size:1.08rem;
+}
+
+.role{
+    background:#eef3f8;
+    color:var(--blue);
+    padding:0.2rem 0.7rem;
+    border-radius:999px;
+    font-size:0.75rem;
+}
+
+.project-desc{
+    font-size:0.95rem;
+    color:#34495e;
+}
+
+.project-tech{
+    margin-top:0.7rem;
+    color:#6b7d8d;
+    font-size:0.82rem;
+}
+
+.highlight-box{
+    background:#f8fbff;
+    border:1px solid #e5edf5;
+    padding:1.2rem;
+    border-radius:18px;
+}
+
+.essay-card{
+    background:#fafcff;
+    border:1px solid #e5edf5;
+    border-radius:20px;
+    padding:1.4rem;
+    margin-top:1rem;
+}
+
+.essay-title{
+    font-weight:700;
+    color:var(--deep);
+    margin-bottom:0.5rem;
+}
+
+.essay-meta{
+    color:#7d8a97;
+    font-size:0.8rem;
+    margin-bottom:1rem;
+}
+
+.footer{
+    text-align:center;
+    padding:1.5rem;
+    color:#7a8794;
+    font-size:0.8rem;
+    border-top:1px solid var(--line);
+    background:#fafcff;
+}
+
+@media(max-width:780px){
+
+    .content{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        border-right:none;
+        border-bottom:1px solid var(--line);
+        padding-right:0;
+        padding-bottom:1rem;
+    }
+
+    .name{
+        font-size:2.2rem;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<div class="name">兰梦遥</div>
+
+<div class="tagline">
+文化产业管理 ｜ 内容研究 ｜ AI应用 ｜ 数字人文
+</div>
+
+<div class="contact">
+<a href="mailto:3240864254@qq.com">📧 邮箱联系</a>
+
+<a href="https://github.com/" target="_blank">
+💻 GitHub
+</a>
+
+<a href="#">
+📍 上海 · 同济大学
+</a>
+</div>
+
+</div>
+
+<div class="content">
+
+<div class="sidebar">
+
+<div class="section">
+<div class="section-title">教育背景</div>
+
+<div class="card">
+<div class="edu-title">同济大学 · 人文学院</div>
+
+<div class="edu-meta">
+文化产业管理（本科）
+</div>
+
+<div class="edu-meta">
+研究兴趣：文化数据分析、AI伦理、数字文化产业
+</div>
+
+<div class="edu-meta">
+奖项：优秀学生二等奖学金、优秀学生干部
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-title">核心技能</div>
+
+<ul class="tag-list">
+<li>Python</li>
+<li>SPSS</li>
+<li>德尔菲法</li>
+<li>数据分析</li>
+<li>AI工具链</li>
+<li>Prompt Engineering</li>
+<li>Notion</li>
+<li>文献综述</li>
+<li>研究报告</li>
+</ul>
+
+</div>
+
+<div class="section">
+<div class="section-title">研究兴趣</div>
+
+<ul class="tag-list">
+<li>电影量化研究</li>
+<li>数字文化产业</li>
+<li>AI伦理</li>
+<li>文化政策</li>
+<li>内容生态</li>
+<li>城市更新</li>
+<li>神话与象征系统</li>
+<li>数字人文</li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="main">
+
+<div class="section">
+
+<div class="section-title">研究 & 项目实践</div>
+
+<div class="project">
+
+<div class="project-header">
+<div class="project-title">
+生成式 AI 伦理风险量化评估指标体系
+</div>
+
+<div class="role">
+SITP · 组长
+</div>
+</div>
+
+<div class="project-desc">
+收集 51 份全球 AI 伦理政策文本，构建 6 个一级指标与 38 个三级指标；通过德尔菲法邀请专家评分，并完成指标权重分析与网页自检工具设计。
+</div>
+
+<div class="project-tech">
+#AI伦理 #指标体系 #德尔菲法 #Python
+</div>
+
+</div>
+
+<div class="project">
+
+<div class="project-header">
+<div class="project-title">
+蹭老式消费与青年个体化文化
+</div>
+
+<div class="role">
+上海市级大创
+</div>
+</div>
+
+<div class="project-desc">
+参与访谈、问卷设计与数据分析，负责市级答辩与研究报告撰写，研究青年消费行为背后的文化逻辑。
+</div>
+
+<div class="project-tech">
+#社会调研 #青年文化 #消费研究
+</div>
+
+</div>
+
+<div class="project">
+
+<div class="project-header">
+<div class="project-title">
+电影纵向影响力模型与映前预测
+</div>
+
+<div class="role">
+独立研究
+</div>
+</div>
+
+<div class="project-desc">
+基于国产电影数据构建聚类与回归模型，研究首周票房占比、评分变化与影片生命周期。
+</div>
+
+<div class="project-tech">
+#Python #SPSS #电影产业 #数据建模
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="section-title">
+研究方法论
+</div>
+
+<div class="highlight-box">
+“理论是分析问题的工具，而不是研究本身。”
+<br><br>
+倾向以真实问题为研究起点，通过结构化分析、指标体系与跨学科方法，将文化现象转化为可研究、可解释的对象。
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="section-title">
+研究随笔
+</div>
+
+<div class="essay-card">
+
+<div class="essay-title">
+《个体异化、融合与爱情消失》
+</div>
+
+<div class="essay-meta">
+2026 · 思考碎片
+</div>
+
+<div class="project-desc">
+当个体在标准化社会中逐渐失去独特性时，“爱情”是否也会因人与人之间差异性的消失而瓦解？
+本文从“异化”“融合”“爱情”三个概念出发，对刘慈欣相关文本进行个人化解读，并尝试结合社会结构、消费文化与情感关系展开分析。
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 兰梦遥 ｜ Personal Academic Portfolio
+</div>
+
+</div>
+
 </body>
 </html>
